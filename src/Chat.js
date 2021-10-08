@@ -18,7 +18,7 @@ function Chat() {
     const {roomId} = useParams()
     const [roomName, setRoomName] = useState('')
     const [messages , setMessages] = useState([])
-    const [{user}, dispatch] = useStateValue();
+    const [{user}] = useStateValue();
 
     useEffect(() =>{
         if(roomId){
@@ -29,7 +29,7 @@ function Chat() {
             db.collection('rooms').doc(roomId).collection('messages').orderBy('timestamp', 'asc').onSnapshot((snapshot) => setMessages(snapshot.docs.map((doc) => doc.data())))
         }
     },[roomId])
-
+    console.log(roomName)
 
     useEffect(() => {
         setSeed(Math.floor(Math.random()*5000))
@@ -55,7 +55,7 @@ function Chat() {
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                 <div className="chat_headerInfo">
                     <h3>{roomName}</h3>
-                    <p>last seen{""}
+                    <p>last seen{" "}
                     {new Date(messages[messages.length-1]?.timestamp?.toDate()).toUTCString()}</p>
                 </div>
                 <div className="chat_header_right">
@@ -85,7 +85,7 @@ function Chat() {
                
             </div>
             <div className="chat_footer">
-                <InsertEmoticonIcon/>
+                <InsertEmoticonIcon style={{cursor: 'pointer'}}/>
                 <form>
                     <input 
                     value = {input}

@@ -1,7 +1,6 @@
 import React from 'react'
 import './login.css'
 import {auth, provider} from './firebase'
-import { actionTypes } from './reducer'  
 import {useStateValue} from "./StateProvider"
 function Login() {
     const [{}, dispatch] = useStateValue();
@@ -9,7 +8,7 @@ function Login() {
         auth.signInWithPopup(provider)
         .then((result) => {  
             dispatch({ 
-                type: actionTypes.SET_USER,
+                type: "SET_USER",
                 user: result.user, 
             }); 
         })
@@ -20,11 +19,11 @@ function Login() {
     return (
         <div className = "login">
             <div className="login_container">
-                <img src="" alt=""/>
+                <img src={'images/whatsappLogo.png'} alt="whatsapp Logo"/>
                 <div className="login_text">
                     <h1>Sign in to WhatsApp</h1>
                 </div>
-                <button onClick={signIn}>Sign in to Google</button>
+                <button onClick={signIn} style={{cursor: 'pointer'}}>Sign in to Google</button>
             </div>
         </div>
     )
